@@ -1,0 +1,25 @@
+{% extends "flights/layout.html" %}
+
+{% block body %}
+
+<h1>Available Flights</h1>
+
+<h3>{{ origin }} → {{ destination }}</h3>
+
+<ul>
+    {% for flight in flights %}
+        <li>
+            Flight {{ flight.id }} |
+            Duration: {{ flight.duration }} minutes
+            <a href="{% url 'flight' flight.id %}">View Flight</a>
+        </li>
+    {% empty %}
+        <li>No flights available for this route.</li>
+    {% endfor %}
+</ul>
+
+<br>
+
+<a href="{% url 'index' %}">Search Again</a>
+
+{% endblock %}

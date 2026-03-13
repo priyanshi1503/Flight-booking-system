@@ -2,12 +2,20 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from flights.models import Airport
 # Create your views here.
+
+from flights.models import Airport
 
 def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
-    return render(request, "users/user.html") 
+
+    airports = Airport.objects.all()
+
+    return render(request, "users/user.html", {
+        "airports": airports
+    })
     
 def login_view(request):
     if request.method=="POST":
@@ -28,3 +36,5 @@ def logout_view(request):
     return render(request, "users/login.html",{
         "message": "Logged out successfully"
     })
+
+

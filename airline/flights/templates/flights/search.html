@@ -1,0 +1,90 @@
+{% extends "flights/base.html" %}
+
+{% block content %}
+
+<h2>Search Flights</h2>
+
+<form method="GET">
+
+<div class="row">
+
+<div class="col-md-4">
+
+<select name="origin" class="form-control">
+
+<option value="">From</option>
+
+{% for airport in airports %}
+
+<option value="{{ airport.id }}">
+{{ airport.city }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-4">
+
+<select name="destination" class="form-control">
+
+<option value="">To</option>
+
+{% for airport in airports %}
+
+<option value="{{ airport.id }}">
+{{ airport.city }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-4">
+<button class="btn btn-primary">Search</button>
+</div>
+
+</div>
+
+</form>
+
+<hr>
+
+{% if flights %}
+
+<table class="table">
+
+<tr>
+<th>Origin</th>
+<th>Destination</th>
+<th>Duration</th>
+<th></th>
+</tr>
+
+{% for flight in flights %}
+
+<tr>
+
+<td>{{ flight.origin.city }}</td>
+<td>{{ flight.destination.city }}</td>
+<td>{{ flight.duration }} mins</td>
+
+<td>
+<a href="/flights/{{ flight.id }}" class="btn btn-success">
+View
+</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endif %}
+
+{% endblock %}
